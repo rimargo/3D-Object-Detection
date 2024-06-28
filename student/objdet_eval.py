@@ -68,7 +68,8 @@ def measure_detection_performance(detections, labels, labels_valid, min_iou=0.5)
                 label_obj_poly = Polygon(label_corners)
                 det_obj_poly = Polygon(det_corners)
                 intersection = det_obj_poly.intersection(label_obj_poly)
-                iou = intersection.area / label_obj_poly.area
+                union = det_obj_poly.union(label_obj_poly)
+                iou = intersection.area / union.area
                 
                 ## step 6 : if IOU exceeds min_iou threshold, store [iou,dist_x, dist_y, dist_z] in matches_lab_det and increase the TP count
                 if iou > min_iou:
